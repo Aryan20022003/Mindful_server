@@ -43,7 +43,7 @@ const createNotesWithAI = async (req, res) => {
     // console.log(saveNote);
     await session.commitTransaction();
     //Session end
-    console.log(saveNote);
+    // console.log(saveNote);
     return res
       .status(200)
       .json({ data: { tone, summary, actionable, disclaimer } });
@@ -109,7 +109,7 @@ const update = async (req, res) => {
       actionable,
       disclaimer,
     };
-    console.log("update\n", update);
+    // console.log("update\n", update);
     const updatedNote = await Note.updateOne(filter, update).session(session);
     const userUpdate = await User.updateOne(
       { email },
@@ -118,13 +118,13 @@ const update = async (req, res) => {
 
     await session.commitTransaction();
 
-    console.log("returned for here");
+    // console.log("returned for here");
     return res.status(200).json({
       message: "updated successfully",
       data: update,
     });
   } catch (err) {
-    console.log("error occured");
+    // console.log("error occured");
     return res.status(500).json({ message: err.message });
   }
 };

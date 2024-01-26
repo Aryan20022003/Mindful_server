@@ -13,6 +13,7 @@ const notesSchemaValidator = (req, resp, next) => {
       .status(400)
       .json({ message: result?.error?.issues[0]?.message });
   }
+  // console.log("notesSchemaValidator next")
   next();
 };
 
