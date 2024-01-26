@@ -16,7 +16,7 @@ const notSchema = new mongoose.Schema({
   },
   thoughts: {
     type: String,
-    require:true,
+    require: true,
   },
   summary: {
     type: String,
@@ -41,7 +41,7 @@ const notSchema = new mongoose.Schema({
   },
 });
 
-notSchema.pre("save", function (next) {
+notSchema.pre("validate", function (next) {
   const currDate = new Date();
   this.month = currDate.getMonth() + 1;
   this.year = currDate.getFullYear();

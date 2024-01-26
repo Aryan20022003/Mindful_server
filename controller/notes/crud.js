@@ -16,6 +16,7 @@ const createNotesWithAI = async (req, res) => {
       throw new Error(aiResponse.data);
     }
     const { tone, summary, actionable, disclaimer } = aiResponse.data;
+    console.log(aiResponse);
 
     //Session start
     const session = await mongoose.startSession();
@@ -39,6 +40,7 @@ const createNotesWithAI = async (req, res) => {
 
     const saveNote = await note.save({ session });
 
+    // console.log(saveNote);
     await session.commitTransaction();
     //Session end
     console.log(saveNote);
@@ -56,4 +58,4 @@ const update = (req, res) => {};
 
 const remove = (req, res) => {};
 
-module.exports = {createNotesWithAI,read,update,remove};
+module.exports = { createNotesWithAI, read, update, remove };

@@ -136,10 +136,23 @@ Invalid input data(Username or password is incorrect)
         }
     ```
 #### Response
+> Success Response
 
+```
+    status: 200
+```
+```
+{
+    "data": {
+        "tone": [string],
+        "summary": string,
+        "actionable": [string],
+        "disclaimer": string
+    }
+}
+```
 
 > Error Response
-
 Unauthorized
 ```
     status: 401
