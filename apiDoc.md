@@ -172,3 +172,30 @@ AI server out of service
     }
 ```
     
+### 4. Get all notes
+
+#### Description
+- Get all notes for a user based on month and year
+- default month and year is current month and year
+
+#### Endpoint
+
+    ``` GET /notes/records```
+
+#### Query Params
+
+    ``` 
+        {
+            month: number,
+            year: number
+        }
+    ```
+#### Response
+
+> Success Response
+```
+    status:200
+```
+``` 
+    
+```

@@ -52,10 +52,42 @@ const createNotesWithAI = async (req, res) => {
   }
 };
 
-const read = (req, res) => {};
+const readNotes = async (req, res) => {
+  try {
+    const month = parseInt(req?.query?.month) || new Date().getMonth() + 1;
+    const year = parseInt(req?.query?.year) || new Date().getFullYear();
+
+    if (month > 12 || month < 1 || year < 1) {
+      throw new Error("Invalid month or year");
+    }
+    // console.log(month, year);
+    const email = req.user.email;
+    const filter = { email, month, year };
+
+    const data = await Note.find(filter, {
+      emotions: 1,
+      title: 1,
+      thoughts: 1,
+      summary: 1,
+      actionAble: 1,
+      disclaimer: 1,
+      _id: 1,
+    }).exec();
+    // console.log(data);
+    return res.status(200).json({ message: "success", data: data });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 
 const update = (req, res) => {};
 
-const remove = (req, res) => {};
+const removeNote = (req, res) => {
+  try {
+    return res.status(200).json({ message: "Note deleted successfully" });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 
-module.exports = { createNotesWithAI, read, update, remove };
+module.exports = { createNotesWithAI, readNotes, update, removeNote };
