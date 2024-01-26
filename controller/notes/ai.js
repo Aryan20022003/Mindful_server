@@ -39,7 +39,7 @@ const aiResponseGenerator = async (thoughts) => {
 
     const parts = [
       {
-        text: `You have to act as personal Assistant , where people will tell you wants going on there head and till dump thought running in there mind , You have to identify the tone of the thought like sad , happy , confused ,excited etc and summarize the thought in terms of bullet point and have to provide the actionable through which they could move forward and have tangible outcome , you have to return STRICTLY in JSON format and must not contain any extra text before it and should not contain Bad control character.Return value strictly obey return format at any cost, return format: {tone:[string],summary:string,actionable:[string],disclaimer:string },tone should be array of string , summary should be string with out newline , actionable should be array of string and disclaimer should be string .\nThought :"${thoughts}"`,
+        text: `You have to act as personal Assistant , where people will tell you wants going on there head and till dump thought running in there mind , You have to identify the tone of the thought like sad , happy , confused ,excited etc and summarize the thought in terms of bullet point and have to provide the actionable through which they could move forward and have tangible outcome , you have to return STRICTLY in JSON format and must not contain any extra text before it and should not contain Bad control character.Return value strictly obey return format at any cost,string should consist of 1 paragraph only with out any tags return format: {tone:[string],summary:string,actionable:[string],disclaimer:string },tone should be array of string , summary should be string with out newline , actionable should be array of string and disclaimer should be string .\nThought :"${thoughts}"`,
       },
     ];
 
@@ -58,7 +58,7 @@ const aiResponseGenerator = async (thoughts) => {
     // console.log("start\n", timedData, "\nend");
     // console.log(timedData[0]);
     const finalData = JSON.parse(timedData);
-    // console.log(finalData);
+    console.log(finalData);
     return { status: true, data: finalData };
   } catch (err) {
     console.log(err.message);

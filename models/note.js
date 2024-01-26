@@ -6,7 +6,7 @@ const notSchema = new mongoose.Schema({
     require: true,
     select: false,
   },
-  emotions: {
+  tone: {
     type: [String],
     default: [],
   },
@@ -21,8 +21,8 @@ const notSchema = new mongoose.Schema({
   summary: {
     type: String,
   },
-  actionAble: {
-    type: String,
+  actionable: {
+    type: [String],
   },
   disclaimer: {
     type: String,

@@ -25,7 +25,7 @@ const createNotesWithAI = async (req, res) => {
     //create new note with traction
     const note = new Note({
       email,
-      emotions: tone,
+      tone,
       title,
       thoughts,
       summary,
@@ -65,25 +65,77 @@ const readNotes = async (req, res) => {
     const filter = { email, month, year };
 
     const data = await Note.find(filter, {
-      emotions: 1,
+      tone: 1,
       title: 1,
       thoughts: 1,
       summary: 1,
-      actionAble: 1,
+      actionable: 1,
       disclaimer: 1,
       _id: 1,
     }).exec();
     // console.log(data);
-    return res.status(200).json({ message: "success", data: data });
+    return res
+      .status(200)
+      .json({
+        message: "success",
+        data: { tone, summary, actionable, disclaimer },
+      });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-const update = (req, res) => {};
-
-const removeNote = (req, res) => {
+const update = async (req, res) => {
   try {
+    const { _id, title, thoughts } = req.body;
+    const { username, email, noOfRequests } = req.user;
+    if (!_id) {
+      throw new Error("Invalid id");
+    }
+    const filter = { _id };
+    const aiResponse = await aiResponseGenerator(thoughts);
+
+    if (!aiResponse.status) {
+      throw new Error("AI is sleeping can't update");
+    }
+
+    //session started
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    const { tone, summary, actionable, disclaimer } = aiResponse.data;
+    const update = {
+      tone,
+      summary,
+      actionable,
+      disclaimer,
+    };
+    console.log("update\n", update);
+    const updatedNote = await Note.updateOne(filter, update).session(session);
+    const userUpdate = await User.updateOne(
+      { email },
+      { noOfRequests: noOfRequests + 1 }
+    ).session(session);
+
+    await session.commitTransaction();
+
+    console.log("returned for here");
+    return res.status(200).json({
+      message: "updated successfully",
+      data: update,
+    });
+  } catch (err) {
+    console.log("error occured");
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+const removeNote = async (req, res) => {
+  try {
+    const { _id } = req.query;
+    if (!_id) {
+      throw new Error("Invalid id");
+    }
+    const deleteNote = await Note.deleteOne({ _id }).exec();
     return res.status(200).json({ message: "Note deleted successfully" });
   } catch (err) {
     return res.status(500).json({ message: err.message });

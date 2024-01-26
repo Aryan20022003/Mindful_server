@@ -197,5 +197,78 @@ AI server out of service
     status:200
 ```
 ``` 
+{
+    "message": "success",
+    "data": [
+        {
+            "_id": string,
+            "tone": [
+                string
+            ],
+            "title": string,
+            "thoughts": string,
+            "disclaimer": string,
+            "summary": string,
+            "actionable":[string],
+        }
+    ]
+}
+
+```
+> Error Response
+``` 
+    status: 500
+```
+```
+    {
+        "message": "error message"
+    }
+```
+### 5. Update a note
+
+#### Description
+- Update a note for a user
+- Each time update request hit count of request by user is increased by 1
+  
+#### Endpoint
+
+    ``` POST /updateNote```
+
+#### Request Body
     
+    ``` 
+        {
+            id: string,
+            title: string,
+            thoughts: string,
+        }
+    ```
+#### Response
+
+> Success Response
+```
+    status:200
+```
+``` 
+    {
+        "message": "updated successfully",
+
+    }
+```
+
+> Error Response
+``` 
+    status: 500
+```
+```
+    {
+        "message": "error message",
+        "data": 
+        {
+            "tone": [string],
+            "summary": string,
+            "actionable": [string],
+            "disclaimer": string
+        }
+    }
 ```

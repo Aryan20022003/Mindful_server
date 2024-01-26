@@ -5,10 +5,12 @@ const {
   createNotesWithAI,
   readNotes,
   removeNote,
+  update
 } = require("../../controller/notes/crud");
 
 router.post("/createAI", notesSchemaValidator, createNotesWithAI);
 router.get("/delete", removeNote);
 router.get("/records", readNotes);
+router.post('/updateNote',notesSchemaValidator,update)
 
 module.exports = router;
