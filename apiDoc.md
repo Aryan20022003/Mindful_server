@@ -119,4 +119,43 @@ Invalid input data(Username or password is incorrect)
         "message": "Invalid input data"
     }
 ```
+### 3. Generate AI notes 
+
+#### Description
+- generate summary , Action items and disclaimer for the thoughts entered by the user
+
+#### Endpoint
+
+    ``` POST /notes/createAI```
+### Request Body
+    
+    ``` 
+        {
+            thoughts: string
+            title: string
+        }
+    ```
+#### Response
+
+
+> Error Response
+
+Unauthorized
+```
+    status: 401
+```
+```
+    {
+        "message": "Unauthorized"
+    }
+```
+AI server out of service
+```
+    status: 500
+```
+```
+    {
+        "message": "could not generate Summary"
+    }
+```
     

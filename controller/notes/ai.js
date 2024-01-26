@@ -7,7 +7,7 @@ const {
 const aiResponseGenerator = async (thoughts) => {
   try {
     const MODEL_NAME = process.env.MODEL_NAME;
-    const API_KEY = process.env.API_KEY;
+    const API_KEY = process.env.AI_API_KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
     const generationConfig = {
@@ -51,7 +51,8 @@ const aiResponseGenerator = async (thoughts) => {
     });
     return { status: true, data: result };
   } catch (err) {
-    return { status: false, data: err.message };
+    console.log(err.message);
+    return { status: false, data: "could not generate Summary" };
   }
 };
 
