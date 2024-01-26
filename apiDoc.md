@@ -3,6 +3,7 @@
 ## Overview
 
 - API doc for the Mindful app (name for now)
+- once the dev phase over request for the access to api will be limited to 10 request for free users and unlimited for paid users
 
 ## Base URL
 
